@@ -29,7 +29,17 @@ Security, High Availability / Reliability, Scalability, Performance and Observab
 
 ### Functional Requirements
 
+- A user-facing web front that's available globally
+- Interaction with external and internal services through APIs
+- Ability to handle large transaction volumes (thousands of requests per second)
+- Use an ACID-compliant relational database to store financial transactions
+
 ### Non-functional Requirements
+
+- The system should be highly available
+- Data should be encrypted at rest and in transit
+- Compliance with standards such as PCI DSS or KYC
+- Requests should have low latency
 
 ## High-Level Design
 
