@@ -29,45 +29,53 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_security_group" "registry" {
   vpc_id = aws_vpc.vpc.id
+}
 
-  # ingress to registry
-  ingress {
-    from_port   = 5000
-    to_port     = 5000
-    protocol    = "tcp"
-    cidr_blocks = [var.my-public-ip]
-  }
+resource "aws_security_group_rule" "registry-ingress-local" {
+  type              = "ingress"
+  security_group_id = aws_security_group.registry.id
 
-  # ssh for debugging
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.my-public-ip]
-  }
+  from_port   = 5000
+  to_port     = 5000
+  protocol    = "tcp"
+  cidr_blocks = [var.my-public-ip]
+}
 
-  # to internet for setup
-  egress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "registry-ingress-ssh" {
+  type              = "ingress"
+  security_group_id = aws_security_group.registry.id
 
-  # to internet for setup
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [var.my-public-ip]
+}
+
+resource "aws_security_group_rule" "registry-egress-http" {
+  type              = "egress"
+  security_group_id = aws_security_group.registry.id
+
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "registry-egress-https" {
+  type              = "egress"
+  security_group_id = aws_security_group.registry.id
+
+  from_port   = 443
+  to_port     = 443
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 # NOTE: for testing and debugging only
-#resource "aws_key_pair" "registry" {
-#  key_name   = "registry-ssh"
-#  public_key = var.ssh-public-key
-#}
+resource "aws_key_pair" "debugging" {
+  key_name   = "registry-ssh"
+  public_key = var.ssh-public-key
+}
 
 resource "aws_instance" "registry" {
   ami                         = data.aws_ami.ubuntu.id
@@ -82,7 +90,11 @@ resource "aws_instance" "registry" {
   })
 
   # NOTE: for testing and debugging only
-  #key_name                    = aws_key_pair.registry.id
+  #key_name                    = aws_key_pair.debugging.id
+
+  tags = {
+    Name = "registry"
+  }
 }
 
 output "registry-public-ip-address" {

@@ -33,7 +33,7 @@ variable "my-public-ip" {
 }
 
 # NOTE: for testing and debugging only
-#variable "ssh-public-key" {
-#  description = "The content of the public SSH key to SSH to the registry for debugging"
-#  type        = string
-#}
+variable "ssh-public-key" {
+  description = "The content of the public SSH key to SSH to the registry for debugging"
+  type        = string
+}
