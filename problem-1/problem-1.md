@@ -73,7 +73,13 @@ Audit logs should be reviewed regularly to detect anomalies and appropriate acti
 
 ### High Availability/Reliability
 
+Services in each region are deployed in a multi-AZ setup. Data is backed up regularly to ensure RTO and RPO.
+
+If cross-region failovers are needed, RDS can be deployed in a multi-region setup. Aurora should also be considered for its high performance and automatic regional failover. Global Accelerator can also aid in fast regional failover.
+
 ### Scalability
+
+API gateways and network load balancers should be able to handle a high volume of requests. ECS can also be set up with Fargate and application auto-scaling to handle varying levels of traffic. Message queues are used for asynchronous communication between services, allowing each service to scale independently. Databases are sharded by user/client ID to help with horizontal scaling.
 
 ### Performance
 
