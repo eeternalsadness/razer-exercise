@@ -21,7 +21,7 @@ This sets up a Docker registry on an EC2 instance on AWS with an S3 bucket as th
 ## Requirements
 
 - AWS credentials with appropriate permissions to set up the necessary infrastructure
-- `docker` installed locally on the test machine
+- `docker` and `terraform` installed locally on the test machine
 
 ## Terraform Setup
 
