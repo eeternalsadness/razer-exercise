@@ -83,4 +83,10 @@ API gateways and network load balancers should be able to handle a high volume o
 
 ### Performance
 
+Network load balancers are used to handle a high volume of requests with low latency. Caches are used at different levels (CDN with CloudFront, API caching with API gateway, database caching with Redis) to reduce latency. If database reads start becoming a problem, read replicas can also be used to offload read requests.
+
+The use of message queues for communication also improves response times and absorb load spikes on each service.
+
 ### Observability
+
+AWS services like CloudWatch, CloudTrail, and OpenSearch offer cloud-native observability. Third-party services like Prometheus, Grafana, or ELK can also be used (in combination with AWS services as necessary), in which case appropriate sidecar containers might need to be deployed alongside each workload.
