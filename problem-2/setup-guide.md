@@ -1,5 +1,16 @@
 # Setup Guide
 
+- [Introduction](#introduction)
+- [Requirements](#requirements)
+- [Terraform Setup](#terraform-setup)
+  - [Local Backend](#local-backend)
+  - [S3 Backend](#s3-backend)
+  - [Variables](#variables)
+- [Deploy the Docker Registry](#deploy-the-docker-registry)
+- [Docker Setup](#docker-setup)
+  - [Linux](#linux)
+  - [MacOS](#macos)
+
 ## Introduction
 
 This sets up a Docker registry on an EC2 instance on AWS with an S3 bucket as the storage backend. The registry is exposed through a public IP address on port 5000. The security group for the EC2 instance is set up so that only the public IP address of the person who sets it up can access it for testing. In a production environment, proper TLS and authentication needs to be set up.
@@ -64,7 +75,7 @@ Since the Docker registry is set up without TLS, you need to add it as an insecu
 
 ### Linux
 
-Add the following to the `/etc/docker/daemon.json` file.
+Add the following to the `/etc/docker/daemon.json` file and restart the Docker service.
 
 ```/etc/docker/daemon.json
 {
@@ -74,7 +85,7 @@ Add the following to the `/etc/docker/daemon.json` file.
 
 ### MacOS
 
-On MacOS, you need to configure this with Docker Desktop. Open Docker Desktop and navigate to the `Settings > Docker Engine` tab, then add the following to the JSON field.
+On MacOS, you need to configure this with Docker Desktop. Open Docker Desktop and navigate to the `Settings > Docker Engine` tab, then add the following to the JSON field and click `Apply & restart`.
 
 ```json
 {
