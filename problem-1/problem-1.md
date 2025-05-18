@@ -57,7 +57,7 @@ Traffic from a regional API gateway is routed to a network load balancer that di
 
 ECS services communicate with each other asynchronously through message queues (SQS, Kafka, etc.). If necessary, a private API gateway can also be used. The payment processor integration service can communicate with external APIs through the respective NAT gateway in each AZ. The NAT gateways should make it easier for the external payment services to whitelist the team's IP addresses. Appropriate security groups and network ACLs should be set up to make sure the outbound traffic is secure.
 
-RDS should be deployed in a multi-AZ setup for high availability, with regular backups to ensure RTO and RPO. The databases can be sharded based on user/client ID to keep up with the high volume of requests. There should also be a message queue that acts as a buffer for the databases. ElastiCache for Redis should be deployed as a caching layer for the databases to ease off read operations.
+RDS should be deployed in a multi-AZ setup for high availability, with regular backups to ensure RTO and RPO. The databases can be sharded based on user/client ID to keep up with the high volume of requests. There should also be a message queue that acts as a buffer for the databases. ElastiCache for Redis should be deployed in cluster mode as a caching layer for the databases to ease off read operations.
 
 Additional AWS services such as GuardDuty, AWS Config, and AWS Secrets Manager can be used to improve security. Observability can be achieved through CloudWatch, CloudTrail, and OpenSearch, or through third-party services like Prometheus, Grafana, and ELK.
 
