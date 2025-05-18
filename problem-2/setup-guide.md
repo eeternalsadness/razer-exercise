@@ -10,6 +10,7 @@
 - [Docker Setup](#docker-setup)
   - [Linux](#linux)
   - [MacOS](#macos)
+- [Push the Image to the Docker Registry](#push-the-image-to-the-docker-registry)
 
 ## Introduction
 
@@ -97,10 +98,12 @@ On MacOS, you need to configure this with Docker Desktop. Open Docker Desktop an
 
 ## Push the Image to the Docker Registry
 
-You need to pull the `yeasy/simple-web` image from Docker Hub and push it to the newly deployed Docker registry.
+On your local machine, pull the `yeasy/simple-web` image from Docker Hub and push it to the newly deployed Docker registry.
 
 ```bash
 docker pull yeasy/simple-web
 docker tag yeasy/simple-web:latest PUBLIC_IP:5000/simple-web:latest
 docker push PUBLIC_IP:5000/simple-web:latest
 ```
+
+![successful docker push](/problem-2/images/successful-docker-push.png)
