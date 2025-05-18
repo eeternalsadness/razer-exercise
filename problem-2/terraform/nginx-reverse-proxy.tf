@@ -65,12 +65,11 @@ resource "aws_security_group_rule" "registry-ingress-nginx" {
 resource "aws_instance" "nginx-reverse-proxy" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance-type
-  iam_instance_profile        = aws_iam_instance_profile.registry.name
   subnet_id                   = aws_subnet.public.id
-  vpc_security_group_ids      = [aws_security_group.registry.id]
+  vpc_security_group_ids      = [aws_security_group.nginx.id]
   user_data_replace_on_change = true
   user_data = templatefile("${path.module}/templates/nginx-reverse-proxy.sh", {
-    docker_registry = "${aws_instance.registry.public_ip}:5000"
+    docker_registry = "${aws_instance.registry.private_ip}:5000"
   })
 
   # NOTE: for testing and debugging only
@@ -81,7 +80,7 @@ resource "aws_instance" "nginx-reverse-proxy" {
   }
 }
 
-output "nginx-public-ip-address" {
+output "nginx-reverse-proxy-public-ip-address" {
   description = "The public IP address that you can access the NGINX reverse proxy with"
   value       = aws_instance.nginx-reverse-proxy.public_ip
 }
