@@ -107,3 +107,19 @@ docker push PUBLIC_IP:5000/simple-web:latest
 ```
 
 ![successful docker push](/problem-2/images/successful-docker-push.png)
+
+## Set up NGINX Reverse Proxy
+
+Now that the image is in the Docker registry, we can start deploying containers with the private Docker registry.
+
+Uncomment the [nginx-reverse-proxy.tf](/problem-2/terraform/nginx-reverse-proxy.tf) file and run `terraform apply` to deploy an NGINX reverse proxy with a `yeasy/simple-web` container on a new EC2 instance. Once the EC2 instance is ready, go to the instance's public IP address to view the web page.
+
+![nginx-reverse-proxy](/problem-2/images/nginx-reverse-proxy.png)
+
+## Set up NGINX Load Balancer
+
+Similar to how you set up the NGINX reverse proxy, uncomment the [nginx-load-balancer.tf](/problem-2/terraform/nginx-load-balancer.tf) file and run `terraform apply` to deploy an NGINX load balancer with 3 `yeasy/simple-web` containers on a new EC2 instance. Once the EC2 instance is ready, go to the instance's public IP address to view the web page. As you refresh the web page, you should see the target IP address change to 3 different values.
+
+![nginx-load-balancer-1](/problem-2/images/nginx-load-balancer-1.png)
+![nginx-load-balancer-2](/problem-2/images/nginx-load-balancer-2.png)
+![nginx-load-balancer-3](/problem-2/images/nginx-load-balancer-3.png)
