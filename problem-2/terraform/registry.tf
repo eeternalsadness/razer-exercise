@@ -46,8 +46,14 @@ resource "aws_security_group" "registry" {
   }
 }
 
-data "cloud_init" "name" {
+data "cloudinit_config" "registry" {
+  gzip          = true
+  base64_encode = true
 
+  part {
+    content_type = "text/x-shellscript"
+    content      = file("${path.module}/templates/install-docker.sh")
+  }
 }
 
 resource "aws_instance" "registry" {
@@ -57,7 +63,7 @@ resource "aws_instance" "registry" {
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.registry.id]
   user_data_replace_on_change = true
-  user_data                   = ""
+  user_data                   = data.cloudinit_config.registry.rendered
 }
 
 output "registry-public-ip-address" {
