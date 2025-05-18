@@ -63,15 +63,15 @@ resource "aws_security_group" "registry" {
   }
 }
 
-resource "aws_key_pair" "registry" {
-  key_name   = "registry-ssh"
-  public_key = var.ssh-public-key
-}
+# NOTE: for testing and debugging only
+#resource "aws_key_pair" "registry" {
+#  key_name   = "registry-ssh"
+#  public_key = var.ssh-public-key
+#}
 
 resource "aws_instance" "registry" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance-type
-  key_name                    = aws_key_pair.registry.id
   iam_instance_profile        = aws_iam_instance_profile.registry.name
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.registry.id]
@@ -80,6 +80,9 @@ resource "aws_instance" "registry" {
     region      = var.region
     bucket_name = aws_s3_bucket.registry.id
   })
+
+  # NOTE: for testing and debugging only
+  #key_name                    = aws_key_pair.registry.id
 }
 
 output "registry-public-ip-address" {
