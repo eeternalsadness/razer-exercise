@@ -65,6 +65,12 @@ Additional AWS services such as GuardDuty, AWS Config, and AWS Secrets Manager c
 
 ### Security
 
+Network security is achieved through the use of AWS services and resources like WAF, Shield, security groups, network ACLs, etc. Additional services like GuardDuty, AWS Config, Secrets Manager, and Macie can improve overall security and compliance.
+
+Data should always be encrypted at rest and in transit. IAM policies and network permissions should be configured with the principle of least privilege in mind.
+
+Audit logs should be reviewed regularly to detect anomalies and appropriate actions should be taken.
+
 ### High Availability/Reliability
 
 ### Scalability
