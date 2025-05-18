@@ -19,11 +19,20 @@ variable "subnet-cidr-block" {
 variable "bucket-name" {
   description = "The name of the S3 bucket used as the storage backend for the registry"
   type        = string
-  default     = "my-test-bucket"
 }
 
 variable "instance-type" {
   description = "The instance type of the EC2 instance that hosts the registry"
   type        = string
   default     = "t2.micro"
+}
+
+variable "my-public-ip" {
+  description = "Your public IP address to access the Docker registry. This is a quick workaround for testing only"
+  type        = string
+}
+
+variable "ssh-public-key" {
+  description = "The content of the public SSH key to SSH to the registry for debugging"
+  type        = string
 }
