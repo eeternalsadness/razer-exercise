@@ -49,6 +49,8 @@ Security, High Availability / Reliability, Scalability, Performance and Observab
 
 ## High-Level Design
 
+![architecture-diagram](/problem-1/architecture-diagram.png)
+
 ## Considerations
 
 ### Security
