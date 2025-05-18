@@ -13,7 +13,7 @@ following services to be deployed:
 - Relational Database
 
 Please provide a network architecture diagram, as well as suitable solutions that considers
-Security, High Availability / Reliability, Scalability, Performance and Observability.
+Security, High Availability/Reliability, Scalability, Performance and Observability.
 
 ## Assumptions
 
@@ -50,6 +50,14 @@ Security, High Availability / Reliability, Scalability, Performance and Observab
 ## High-Level Design
 
 ![architecture-diagram](/problem-1/architecture-diagram.png)
+
+On the global level, Route 53 routes web traffic to the appropriate CloudFront distributions that are backed by S3 (using Origin Access Control for security). Mobile clients and external API calls are routed to the appropriate regional API gateways. Amazon WAF and Shield are deployed to secure the inbound connections. CloudFront and API Gateways are set up with necessary certificates with AWS ACM.
+
+Traffic from a regional API gateway is routed to a network load balancer that distributes traffic to ECS services in multiple availability zones (AZ). A network load balancer should offer higher throughput and lower latency than an application load balancer.
+
+ECS services communicate with each other asynchronously through message queues (SQS, Kafka, etc.). If necessary, a private API gateway can also be used. The payment processor integration service can communicate with external APIs through the respective NAT gateway in each AZ. The NAT gateways should make it easier for the external payment services to whitelist the team's IP addresses. Appropriate security groups and network ACLs should be set up to make sure the outbound traffic is secure.
+
+RDS should be deployed in a multi-AZ setup for high availability, with regular backups to ensure RTO and RPO. The databases can be sharded based on user/client ID to keep up with the high volume of requests. There should also be a message queue that acts as a buffer for the databases. ElastiCache for Redis should be deployed as a caching layer for the databases to ease off read operations.
 
 ## Considerations
 
