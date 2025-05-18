@@ -59,6 +59,8 @@ ECS services communicate with each other asynchronously through message queues (
 
 RDS should be deployed in a multi-AZ setup for high availability, with regular backups to ensure RTO and RPO. The databases can be sharded based on user/client ID to keep up with the high volume of requests. There should also be a message queue that acts as a buffer for the databases. ElastiCache for Redis should be deployed as a caching layer for the databases to ease off read operations.
 
+Additional AWS services such as GuardDuty, AWS Config, and AWS Secrets Manager can be used to improve security. Observability can be achieved through CloudWatch, CloudTrail, and OpenSearch, or through third-party services like Prometheus, Grafana, and ELK.
+
 ## Considerations
 
 ### Security
