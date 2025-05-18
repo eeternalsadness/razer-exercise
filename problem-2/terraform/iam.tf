@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "registry" {
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload"
     ]
-    resources = [aws_s3_bucket.registry.arn]
+    resources = ["${aws_s3_bucket.registry.arn}/*"]
   }
 }
 
