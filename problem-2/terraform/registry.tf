@@ -72,10 +72,10 @@ resource "aws_security_group_rule" "registry-egress-https" {
 }
 
 # NOTE: for testing and debugging only
-resource "aws_key_pair" "debugging" {
-  key_name   = "registry-ssh"
-  public_key = var.ssh-public-key
-}
+#resource "aws_key_pair" "debugging" {
+#  key_name   = "registry-ssh"
+#  public_key = var.ssh-public-key
+#}
 
 resource "aws_instance" "registry" {
   ami                         = data.aws_ami.ubuntu.id
