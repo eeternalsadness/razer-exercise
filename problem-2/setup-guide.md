@@ -11,6 +11,8 @@
   - [Linux](#linux)
   - [MacOS](#macos)
 - [Push the Image to the Docker Registry](#push-the-image-to-the-docker-registry)
+- [Set up NGINX Reverse Proxy](#set-up-nginx-reverse-proxy)
+- [Set up NGINX Load Balancer](#set-up-nginx-load-balancer)
 
 ## Introduction
 
